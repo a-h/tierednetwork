@@ -15,10 +15,11 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "ssh" {
-  ami           = "${data.aws_ami.amazon_linux.id}"
-  instance_type = "t2.micro"
-  subnet_id     = "${aws_subnet.public_1.id}"
-  security_groups = ["${aws_security_group.allow_ssh.id}"]
+  ami                    = "${data.aws_ami.amazon_linux.id}"
+  instance_type          = "t2.micro"
+  subnet_id              = "${aws_subnet.public_1.id}"
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  key_name               = "welL_test"
 
   user_data = <<-EOF
               #!/bin/bash
